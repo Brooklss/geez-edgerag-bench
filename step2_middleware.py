@@ -46,6 +46,7 @@ try:
     import pynvml  # type: ignore
 
     pynvml.nvmlInit()
+    pynvml.nvmlShutdown()
     _NVML_AVAILABLE = True
 except Exception:
     _NVML_AVAILABLE = False
@@ -73,39 +74,43 @@ def get_gpu_telemetry(device_index: int = 0) -> Optional[GPUTelemetry]:
     if not _NVML_AVAILABLE:
         return None
     try:
-        handle = pynvml.nvmlDeviceGetHandleByIndex(device_index)
-        mem = pynvml.nvmlDeviceGetMemoryInfo(handle)
-        util = pynvml.nvmlDeviceGetUtilizationRates(handle)
-        temp = pynvml.nvmlDeviceGetTemperature(handle, pynvml.NVML_TEMPERATURE_GPU)
-        power = pynvml.nvmlDeviceGetPowerUsage(handle) / 1000.0  # mW -> W
-        name = pynvml.nvmlDeviceGetName(handle)
-        if isinstance(name, bytes):
-            name = name.decode()
-
-        # Throttle reason flags
+        pynvml.nvmlInit()
         try:
-            throttle_flags = pynvml.nvmlDeviceGetCurrentClocksThrottleReasons(handle)
-            if throttle_flags == 0:
-                throttle_reason = "None"
-            elif throttle_flags & pynvml.nvmlClocksThrottleReasonSwThermalSlowdown:
-                throttle_reason = "SW Thermal Slowdown"
-            elif throttle_flags & pynvml.nvmlClocksThrottleReasonHwSlowdown:
-                throttle_reason = "HW Slowdown"
-            else:
-                throttle_reason = f"Flags: 0x{throttle_flags:08X}"
-        except Exception:
-            throttle_reason = "N/A"
+            handle = pynvml.nvmlDeviceGetHandleByIndex(device_index)
+            mem = pynvml.nvmlDeviceGetMemoryInfo(handle)
+            util = pynvml.nvmlDeviceGetUtilizationRates(handle)
+            temp = pynvml.nvmlDeviceGetTemperature(handle, pynvml.NVML_TEMPERATURE_GPU)
+            power = pynvml.nvmlDeviceGetPowerUsage(handle) / 1000.0  # mW -> W
+            name = pynvml.nvmlDeviceGetName(handle)
+            if isinstance(name, bytes):
+                name = name.decode()
 
-        return GPUTelemetry(
-            device_name=name,
-            total_vram_mb=mem.total / (1024 ** 2),
-            used_vram_mb=mem.used / (1024 ** 2),
-            free_vram_mb=mem.free / (1024 ** 2),
-            gpu_util_pct=util.gpu,
-            temperature_c=temp,
-            power_draw_w=power,
-            throttle_reason=throttle_reason,
-        )
+            # Throttle reason flags
+            try:
+                throttle_flags = pynvml.nvmlDeviceGetCurrentClocksThrottleReasons(handle)
+                if throttle_flags == 0:
+                    throttle_reason = "None"
+                elif throttle_flags & pynvml.nvmlClocksThrottleReasonSwThermalSlowdown:
+                    throttle_reason = "SW Thermal Slowdown"
+                elif throttle_flags & pynvml.nvmlClocksThrottleReasonHwSlowdown:
+                    throttle_reason = "HW Slowdown"
+                else:
+                    throttle_reason = f"Flags: 0x{throttle_flags:08X}"
+            except Exception:
+                throttle_reason = "N/A"
+
+            return GPUTelemetry(
+                device_name=name,
+                total_vram_mb=mem.total / (1024 ** 2),
+                used_vram_mb=mem.used / (1024 ** 2),
+                free_vram_mb=mem.free / (1024 ** 2),
+                gpu_util_pct=util.gpu,
+                temperature_c=temp,
+                power_draw_w=power,
+                throttle_reason=throttle_reason,
+            )
+        finally:
+            pynvml.nvmlShutdown()
     except Exception as exc:
         warnings.warn(f"NVML telemetry error: {exc}")
         return None

@@ -47,6 +47,7 @@ try:
     import pynvml  # type: ignore
 
     pynvml.nvmlInit()
+    pynvml.nvmlShutdown()
     _NVML_AVAILABLE = True
 except Exception:
     _NVML_AVAILABLE = False
