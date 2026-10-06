@@ -22,12 +22,20 @@ Dependencies
 
 from __future__ import annotations
 
+import sys
+import io
+# Force UTF-8 output so Ethiopic characters render correctly on Windows
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+elif hasattr(sys.stdout, 'buffer'):
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+
 import json
 import math
 import re
 import warnings
 from collections import Counter
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Optional, Tuple
 
@@ -118,6 +126,36 @@ def print_telemetry(tel: Optional[GPUTelemetry]) -> None:
         ["Throttle Reason", tel.throttle_reason],
     ]
     print(tabulate(rows, headers=["Metric", "Value"], tablefmt="rounded_outline"))
+
+
+# ---------------------------------------------------------------------------
+# KV-Cache memory estimation
+# ---------------------------------------------------------------------------
+
+def kv_cache_bytes(
+    num_tokens: int,
+    num_layers: int,
+    num_kv_heads: int,
+    head_dim: int,
+    dtype_bytes: int,
+) -> int:
+    """
+    Compute KV-cache VRAM (bytes) for a given token count.
+
+    Formula:
+        KV_mem = 2 × L × H_kv × d × t × dtype_bytes
+    where:
+        L          = number of transformer layers
+        H_kv       = number of key/value attention heads
+        d          = head dimension
+        t          = sequence length in tokens
+        dtype_bytes= bytes per element (2 for FP16, 1 for INT8)
+    """
+    return 2 * num_layers * num_kv_heads * head_dim * num_tokens * dtype_bytes
+
+
+def bytes_to_mb(n: int) -> float:
+    return n / (1024 ** 2)
 
 
 # ---------------------------------------------------------------------------

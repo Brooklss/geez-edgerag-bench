@@ -22,9 +22,16 @@ Dependencies
 
 from __future__ import annotations
 
+import sys
+import io
+# Force UTF-8 output so Ethiopic characters render correctly on Windows
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+elif hasattr(sys.stdout, 'buffer'):
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+
 import json
 import math
-import os
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import List

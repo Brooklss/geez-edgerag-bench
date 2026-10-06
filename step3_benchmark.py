@@ -23,10 +23,17 @@ Dependencies
 
 from __future__ import annotations
 
+import sys
+import io
+# Force UTF-8 output so Ethiopic characters render correctly on Windows
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+elif hasattr(sys.stdout, 'buffer'):
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+
 import csv
 import json
 import math
-import os
 import time
 import warnings
 from dataclasses import asdict, dataclass
