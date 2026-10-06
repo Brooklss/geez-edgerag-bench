@@ -1,0 +1,47 @@
+{
+  "description": "Parallel English-Amharic technical RAG evaluation corpus for Ge'ez-EdgeRAG benchmark",
+  "language_pair": ["english", "amharic"],
+  "domain": "enterprise_ai_and_nlp",
+  "entries": [
+    {
+      "id": 1,
+      "english": "Retrieval-Augmented Generation (RAG) is a technique that combines a retrieval system with a language model to produce factually grounded responses. The retriever fetches relevant document chunks from a vector database, which are then concatenated into the model context window before generation.",
+      "amharic": "ሪትሪቫል-ኦጎሜንትድ ጀነሬሽን (RAG) የሰነድ ፍለጋ ስርዓትን ከቋንቋ ሞዴል ጋር አጣምሮ እውነተኛ መልሶችን ለማምረት የሚጠቀም ዘዴ ነው። ፈላጊው ተዛማጅ የሰነድ ቁርጥራጮችን ከቬክተር ዳታቤዝ ያሰባስባል፣ ከዚያ ወደ ሞዴሉ የይዘት መስኮት ከማምረት አስቀድሞ ይጨምሩዋቸዋል።"
+    },
+    {
+      "id": 2,
+      "english": "Key-Value (KV) cache stores the intermediate attention states computed during the prefill phase of a transformer forward pass. For long contexts, KV-cache size scales linearly with sequence length and can consume several gigabytes of VRAM on modern language models.",
+      "amharic": "ቁልፍ-ዋጋ (KV) ካሽ በትራንስፎርመር ፎርዋርድ ማለፍ የቅድመ-ሙያ ምዕራፍ ውስጥ የሚሰሉ መካከለኛ ትኩረት ሁኔታዎችን ያዝ ያደርጋል። ለረጅም ሁኔታዎች፣ KV-ካሽ መጠን ከቅደም ተከተል ርዝሙ ጋር በቀጥታ ሊለካ ይችላል እና ዘመናዊ ቋንቋ ሞዴሎች ላይ ብዙ ጊጋባይት VRAM ሊወስድ ይችላል።"
+    },
+    {
+      "id": 3,
+      "english": "Byte-Pair Encoding (BPE) is a subword tokenization algorithm that iteratively merges the most frequent character pairs in a corpus to build a fixed-size vocabulary. Languages with limited training data coverage, such as Amharic, suffer from high fertility rates under standard BPE tokenizers.",
+      "amharic": "ባይት-ፔር-ኢንኮዲንግ (BPE) በቃላት ደረጃ ያነሰ ቶከናይዜሽን ስልተ-ቀመር ሲሆን ቋሚ መጠን ያለው ቃላት ዝርዝር ለመገንባት በኮርፐስ ውስጥ ብዙ ጊዜ የሚከሰቱ የቁምፊ ጥንዶችን ደጋግሞ ያጣምራል። እንደ አማርኛ ያሉ ውስን የስልጠና ዳታ ሽፋን ያላቸው ቋንቋዎች፣ መደበኛ BPE ቶከናይዘሮች ስር ከፍተኛ የእናቱ ምጣኔ ያጋጥሟቸዋል።"
+    },
+    {
+      "id": 4,
+      "english": "Quantization reduces model weight precision from 32-bit float to lower bit-widths such as 8-bit integer or 4-bit integer, enabling large language models to run on consumer GPUs with limited VRAM. Common quantization schemes for local inference include GGUF Q4_K_M and Q8_0.",
+      "amharic": "ኩዋንቲዜሽን የሞዴል ክብደት ትክክለኛነትን ከ32-ቢት ፍሎት ወደ 8-ቢት ኢንቲጀር ወይም 4-ቢት ኢንቲጀር ያሉ ዝቅተኛ ቢት-ዝርዝሮች ይቀንሳል፣ ይህም ትልቅ ቋንቋ ሞዴሎችን ውስን VRAM ባለው ተጠቃሚ GPUs ላይ ለማሄድ ያስችላል። ለአካባቢ ምረቃ አዘውትረው ጥቅም ላይ የሚውሉ የኩዋንቲዜሽን ዕቅዶች GGUF Q4_K_M እና Q8_0 ያካትታሉ።"
+    },
+    {
+      "id": 5,
+      "english": "Time-to-First-Token (TTFT) measures the latency between the submission of a prompt and the generation of the first output token. TTFT is dominated by the prefill cost, which scales quadratically with context length for full-attention transformers without KV-cache reuse.",
+      "amharic": "ለመጀመሪያ ቶከን ጊዜ (TTFT) ፕሮምፕት ከቀረበ ጊዜ አንስቶ የመጀመሪያ ውፅዓት ቶከን እስኪፈጠር ድረስ ያለውን መዘግዬት ይለካል። TTFT ቅድሚያ-ሙሌት ወጪ ይቆጣጠረዋል፣ ይህም KV-ካሽ ዳግም አጠቃቀም ሳይኖር ሙሉ ትኩረት ትራንስፎርመሮች ዘንድ ከሁኔታ ርዝሙ ጋር ካሬአዊ ሆኖ ይሰፋል።"
+    },
+    {
+      "id": 6,
+      "english": "TF-IDF (Term Frequency-Inverse Document Frequency) is a statistical measure used in information retrieval to evaluate how relevant a word is to a document within a corpus. In RAG pipelines, TF-IDF scoring can prioritize high-information-density chunks before concatenation.",
+      "amharic": "TF-IDF (ቃሉ ድግግሞሽ-የተቃወሰ ሰነድ ድግግሞሽ) ቃሉ በኮርፐስ ውስጥ ካለ ሰነድ ጋር ያለው ተዛምዷ ለማقes ለመፈለጊያ ዘዴ ውስጥ ጥቅም ላይ የሚውል ስታቲስቲካዊ መለኪያ ነው። RAG ቱቦ መስመሮች ውስጥ፣ TF-IDF ውጤት ከመጨናነቅ አስቀድሞ ከፍ ያለ መረጃ-ጥቅጥቅ ያሉ ቁርጥራጮችን ቅድሚያ ሊሰጥ ይችላል።"
+    },
+    {
+      "id": 7,
+      "english": "Small Language Models (SLMs) with parameter counts below 4 billion have demonstrated competitive performance on domain-specific reasoning tasks compared to larger models. SLMs are particularly well-suited for edge deployment due to their reduced memory footprint and inference latency.",
+      "amharic": "ከ4 ቢሊዮን በታች ፓራሜትሮች ያሏቸው አነስተኛ ቋንቋ ሞዴሎች (SLMs) ከትላልቅ ሞዴሎች ጋር ሲነፃፀሩ በጎራ-ልዩ አስተሳሰብ ተግባሮች ላይ ተፎካካሪ አፈጻጸም አሳይተዋል። SLMs ቀነሱ የሙሉ ትውስታ ዱካቸው እና ምረቃ መዘግዬታቸው ምክንያት ለጠርዝ ማሰማራት ተስማሚ ናቸው።"
+    },
+    {
+      "id": 8,
+      "english": "Ethiopic script, also known as Ge'ez, is an abugida writing system used for languages including Amharic, Tigrinya, and classical Ge'ez. The script encodes consonant-vowel combinations as single characters, resulting in a large character inventory that challenges standard tokenizer vocabulary coverage.",
+      "amharic": "ኢትዮጵያዊ ጽሑፍ፣ ግዕዝ ተብሎም የሚታወቀው፣ አማርኛ፣ ትግርኛ እና ጥንታዊ ግዕዝን ጨምሮ ለቋንቋዎች ጥቅም ላይ የሚውል አቡጊዳ ጽሁፍ ስርዓት ነው። ጽሑፉ ሁለቱን ሆሄ-አናባቢ ጥምረቶችን እንደ ነጠላ ቁምፊ ኢንኮድ ያደርጋል፣ ይህም መደበኛ ቶከናይዘር ቃላት ዝርዝር ሽፋን የሚፈታተን ትልቅ ቁምፊ ዝርዝር ይፈጥራል።"
+    }
+  ]
+}
