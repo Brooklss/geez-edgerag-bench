@@ -4,6 +4,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![Hardware: NVIDIA Blackwell RTX 5060](https://img.shields.io/badge/GPU-RTX%205060%20(8GB)-76B900.svg)](https://developer.nvidia.com/)
 [![Status: Research Benchmark](https://img.shields.io/badge/Status-Active%20Benchmark-success.svg)]()
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23193097.svg)](https://doi.org/10.5281/zenodo.23193097)
 
 **Ge'ez-EdgeRAG** is a lightweight telemetry profiler and dynamic context-pruning middleware designed for self-hosted Retrieval-Augmented Generation (RAG) pipelines operating under strict consumer GPU memory ceilings (8 GB VRAM).
 
